@@ -23,6 +23,7 @@ const randomIntegerFromInterval = (min, max) => {
 
 //функция создания инлайна-стиля для body
 function colorChange(indexNumber) {
+  console.log(indexNumber);
   console.log(colors[indexNumber]);
   return (body.style.backgroundColor = colors[indexNumber]);
 }
@@ -44,7 +45,7 @@ function onStartBtnClick() {
 function onStopBtnClick() {
   console.log('Stop');
   // прерываем интервал
-  clearTimeout(timeoutId);
+  clearInterval(timeoutId);
   //ставим слушатель на startBtn и убираем слушатель со stopBtn
   startBtn.addEventListener('click', onStartBtnClick);
   stopBtn.removeEventListener('click', onStopBtnClick);
