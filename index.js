@@ -7,15 +7,16 @@ const colors = [
   '#009688',
   '#795548',
 ];
-
-const body = document.querySelector('body');
-const buttons = document.querySelectorAll('button');
-const startBtn = buttons[0];
-const stopBtn = buttons[1];
+// объект элементов
+const refs = {
+  body: document.querySelector('body'),
+  startBtn: document.querySelector('button[data-action="start"]'),
+  stopBtn: document.querySelector('button[data-action="stop"]'),
+};
 
 let timeoutId = null;
 
-startBtn.addEventListener('click', onStartBtnClick);
+refs.startBtn.addEventListener('click', onStartBtnClick);
 
 //функция создания инлайна-стиля для body
 function colorChange() {
@@ -24,7 +25,7 @@ function colorChange() {
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
   // возвращаем инлайн-стили
-  return (body.style.backgroundColor =
+  return (refs.body.style.backgroundColor =
     colors[randomIntegerFromInterval(0, colors.length - 1)]);
 }
 
@@ -34,8 +35,8 @@ function onStartBtnClick() {
   //включаем интервал и вызываем колбек
   timeoutId = setInterval(colorChange, 1000);
   //добавляем слушатель на stopBtn и убираем слушатель со startBtn
-  stopBtn.addEventListener('click', onStopBtnClick);
-  startBtn.removeEventListener('click', onStartBtnClick);
+  refs.stopBtn.addEventListener('click', onStopBtnClick);
+  refs.startBtn.removeEventListener('click', onStartBtnClick);
 }
 
 function onStopBtnClick() {
@@ -43,6 +44,6 @@ function onStopBtnClick() {
   // прерываем интервал
   clearInterval(timeoutId);
   //ставим слушатель на startBtn и убираем слушатель со stopBtn
-  startBtn.addEventListener('click', onStartBtnClick);
-  stopBtn.removeEventListener('click', onStopBtnClick);
+  refs.startBtn.addEventListener('click', onStartBtnClick);
+  refs.stopBtn.removeEventListener('click', onStopBtnClick);
 }
